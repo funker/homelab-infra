@@ -2,22 +2,6 @@ locals {
   today = formatdate("YYYY-MM-DD", timestamp())
 }
 
-# module "vm_master" {
-#   source              = "./modules/vm-master"
-#   vmid                = 50000
-#   name                = var.vm_master_name
-#   target_node         = "pve-nuc"
-#   cpu_cores           = 2
-#   memory              = 2048
-#   disk_size           = "12G"
-#   storage             = "local-lvm"
-#   bridge              = "vmbr0"
-#   user_name           = var.linux_user
-#   public_ssh_key      = var.public_ssh_key
-#   qcow2_image         = var.vm_template_image
-#   create_date         = local.today
-# }
-
 # module "template_conversion" {
 #   source              = "./modules/vm-template"
 #   vmid                = 50000

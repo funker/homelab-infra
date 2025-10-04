@@ -27,8 +27,6 @@ terraform.tfvars.json
 # Temporäre Dateien
 *.retry
 
-vm-master
-
 *.old
 
 ansible/

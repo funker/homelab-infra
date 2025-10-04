@@ -27,12 +27,6 @@ variable "linux_user" {
   sensitive     = true
 }
 
-# variable "vm_template_image" {
-#   description   = "Cloud-Init template for VMs"
-#   type          = string
-#   default       = "debian-13-genericcloud-amd64.qcow2"
-# }
-
 variable "lxc_template_image" {
   description   = "Standard LXC Container-Template für alle LXC-Module"
   type          = string
