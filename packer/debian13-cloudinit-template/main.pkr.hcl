@@ -36,6 +36,6 @@ source "proxmox" "debian13" {
   ssh_pty      = true
   vm_name     = var.template_name
 
-  cloud_init_user = "ubuntu"
-  cloud_init_ssh_authorized_keys = ["ssh-rsa AAAA...user-public-key..."]
+  cloud_init_user = var.linux_user
+  cloud_init_ssh_authorized_keys = var.cloud_init_ssh_authorized_keys
 }
