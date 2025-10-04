@@ -1,0 +1,6 @@
+proxmox_url     = "https://192.168.1.10:8006/api2/json" # Proxmox API URL
+proxmox_user    = "user@pve!api-name" # Proxmox user name
+proxmox_token   = "11111111-1111-1111-1111-111111111111" # Proxmox API token
+public_ssh_key  = "ssh-ed25519 AAAA..." # Your SSH public key
+linux_user      = "ubuntu" # Name of the user to create and become sudoer on every machine
+subnet          = "192.168.1" # First three octets of the subnet all machines should be using. Will be used to generate all fixed machine IPs plus the gateway IP
