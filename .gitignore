@@ -1,0 +1,33 @@
+# Terraform state
+*.tfstate
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Sensitive variable files
+*.tfvars
+*.auto.tfvars
+terraform.tfvars
+terraform.tfvars.json
+
+# Terraform working directory
+.terraform/
+
+# Optional: Plan files (falls du sie erzeugst)
+*.tfplan
+
+# Ansible Vault Dateien (falls genutzt)
+*.vault.yml
+
+# Temporäre Dateien
+*.retry
+
+vm-master
+
+*.old
+
+ansible/
