@@ -7,13 +7,13 @@ packer {
   }
 }
 
-variable "proxmox_api_token_id" {
+variable "proxmox_user" {
   type = string
   default = ""
   sensitive = true
 }
 
-variable "proxmox_api_token_secret" {
+variable "proxmox_token" {
   type = string
   default = ""
   sensitive = true
