@@ -1,10 +1,10 @@
 variable "proxmox_url" {
-  description   = "API URL for Proxmox"
+  description   = "API URL für Proxmox"
   type          = string
 }
 
 variable "proxmox_user" {
-  description   = "Proxmox API user (e.g., api@pam!tokenid)"
+  description   = "Proxmox API user (z.B., api@pam!tokenid)"
   type          = string
   sensitive     = true
 }
@@ -27,30 +27,31 @@ variable "linux_user" {
   sensitive     = true
 }
 
-variable "vm_template_image" {
-  description = "Cloud-Init template for VMs"
-  type = string
-  # default = "debian-13-genericcloud-amd64.qcow2"
-  default = "lunar-server-cloudimg-amd64-disk-kvm.img"
-}
+# variable "vm_template_image" {
+#   description   = "Cloud-Init template for VMs"
+#   type          = string
+#   default       = "debian-13-genericcloud-amd64.qcow2"
+# }
 
 variable "lxc_template_image" {
-  description = "Standard LXC Container-Template für alle LXC-Module"
-  type    = string
-  default = "local:vztmpl/debian-13-standard_13.1-2_amd64.tar.zst"
+  description   = "Standard LXC Container-Template für alle LXC-Module"
+  type          = string
+  default       = "local:vztmpl/debian-13-standard_13.1-2_amd64.tar.zst"
 }
 
 variable "subnet" {
-  type    = string
-  default = "10.1.2"
+  description = "Default Subnetz für alle Maschinen"
+  type          = string
+  sensitive     = true
 }
 
 variable "gateway_last_octet" {
-  type    = string
-  default = "1"
+  type          = string
+  default       = "1"
 }
 
 variable "vm_master_name" {
-  type = string
-  default = "debian13-master"
+  description   = "Name der Template-VM, aus der neue VMs geklont werden"
+  type          = string
+  default       = "ubuntu-cloud"
 }
