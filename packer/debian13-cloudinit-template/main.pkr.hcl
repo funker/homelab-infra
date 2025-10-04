@@ -20,9 +20,9 @@ variable "proxmox_api_token_secret" {
 }
 
 source "proxmox" "debian13" {
-  url        = var.proxmox_address
-  api_token  = var.proxmox_api_token_id
-  api_secret = var.proxmox_api_token_secret
+  url        = var.proxmox_url
+  api_token  = var.proxmox_user
+  api_secret = var.proxmox_token
   vm_id      = 9000
   cores      = 2
   memory     = 2048
