@@ -5,7 +5,7 @@ terraform {
     proxmox = {
       # LINK https://github.com/Telmate/terraform-provider-proxmox
       source = "telmate/proxmox"
-      version = "3.0.2-rc04"
+      version = "2.9.14"
     }
   }
 }

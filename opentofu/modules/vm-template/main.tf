@@ -2,21 +2,9 @@ terraform {
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
-      version = "3.0.2-rc04"
+      version = "2.9.14"
     }
   }
-}
-
-variable "vmid" {
-  type = number
-}
-
-variable "target_node" {
-  type = string
-}
-
-variable "name" {
-  type = string
 }
 
 resource "null_resource" "convert_to_template" {

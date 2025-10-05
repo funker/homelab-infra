@@ -55,3 +55,9 @@ variable "vm_master_name" {
   type          = string
   default       = "ubuntu-cloud"
 }
+
+variable "onboot" {
+  description   = "Autostart des Containers / der VM nach dem Start von Proxmox"
+  type          = bool
+  default       = false
+}
