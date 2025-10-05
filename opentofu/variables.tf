@@ -33,6 +33,12 @@ variable "lxc_template_image" {
   default       = "local:vztmpl/debian-13-standard_13.1-2_amd64.tar.zst"
 }
 
+variable "unpriviledged" {
+  description   = "Is the container unpriviledged?"
+  type          = bool
+  default       = false
+}
+
 variable "subnet" {
   description = "Default Subnetz für alle Maschinen"
   type          = string

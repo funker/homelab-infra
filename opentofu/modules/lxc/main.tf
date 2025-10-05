@@ -33,18 +33,14 @@ variable "memory" {
   default = 2048
 }
 
-# variable "ip" {
-#   type = string
-# }
+variable "unpriviledged" {
+  type = bool
+}
 
 variable "bridge" {
   type = string
   default = "vmbr0"
 }
-
-# variable "gateway" {
-#   type = string
-# }
 
 variable "subnet" {
   type = string  
@@ -64,22 +60,27 @@ locals {
 }
 
 resource "proxmox_lxc" "container" {
-  vmid        = var.vmid
-  hostname    = var.name
-  ostemplate  = var.template
-  cores       = var.cores
-  memory      = var.memory
+  features {
+    nesting       = false
+  }
+  pool            = "terraform"
+  unprivileged    = var.unpriviledged
+  vmid            = var.vmid
+  hostname        = var.name
+  ostemplate      = var.template
+  cores           = var.cores
+  memory          = var.memory
 
   rootfs {
-    storage = var.storage
-    size    = "8G"   # Größe anpassen, "8G" für 8 Gigabyte
+    storage     = var.storage
+    size        = "8G"   # Größe anpassen, "8G" für 8 Gigabyte
   }
 
   network {
-    name   = "eth0"
-    bridge = var.bridge
-    ip     = "ip=${local.ip_address}/24"
-    gw     = local.gateway_ip
+    name        = "eth0"
+    bridge      = var.bridge
+    ip          = "ip=${local.ip_address}/24"
+    gw          = local.gateway_ip
   }
 
   onboot  = true

@@ -127,6 +127,7 @@ module "lxc_pihole1" {
   storage             = "local-lvm"
   cores               = 2
   memory              = 2048
+  unpriviledged       = false
   bridge              = "vmbr0"
   subnet              = var.subnet
   gateway_last_octet  = var.gateway_last_octet

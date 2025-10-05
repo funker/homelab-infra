@@ -1,0 +1,33 @@
+# Git ignore file für Packer Debian Template
+
+# Secrets und sensitive Daten
+secrets.pkrvars.hcl
+*.secret
+*.key
+*.pem
+
+# Packer Cache und temporäre Dateien
+.packer.d/
+packer_cache/
+*.tmp
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Local overrides
+local.pkrvars.hcl
+override.pkr.hcl

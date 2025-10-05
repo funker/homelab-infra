@@ -29,6 +29,8 @@ terraform.tfvars.json
 
 *.old
 
+*.log
+
 ansible/
 
 # Packer
