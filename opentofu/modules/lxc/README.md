@@ -31,6 +31,7 @@ modules/
 
 ## Usage
 
+```tf
 module "lxc_pihole1" {
     source = "./modules/lxc"
     vmid = 10248
@@ -48,7 +49,7 @@ module "lxc_pihole1" {
     start_after_create = true
     extra_tags = ["pihole","dns"]
 }
-
+```
 
 ## Tags und Start-Verhalten
 
