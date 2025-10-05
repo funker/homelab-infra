@@ -59,9 +59,10 @@ module "lxc_pihole1" {
 
 ## Plan & Apply
 
+```
 tofu init -upgrade
 tofu plan -out=plan.tfplan
 tofu apply plan.tfplan
-
+```
 
 Damit haben Sie ein schlankes, wartungsarmes LXC-Modul mit klarer Variablenstruktur und automatischem Startverhalten.
