@@ -21,6 +21,12 @@ variable "public_ssh_key" {
   sensitive     = true
 }
 
+variable "private_ssh_key" {
+  description   = "Private SSH key for VM and LXC access"
+  type          = string
+  sensitive     = true
+}
+
 variable "linux_user" {
   description   = "User to be created on every machine"
   type          = string
@@ -30,7 +36,7 @@ variable "linux_user" {
 variable "lxc_template_image" {
   description   = "Standard LXC Container-Template für alle LXC-Module"
   type          = string
-  default       = "local:vztmpl/debian-13-standard_13.1-2_amd64.tar.zst"
+  default       = "local:vztmpl/ubuntu-24.04.3-live-server-amd64.iso"
 }
 
 variable "unpriviledged" {
@@ -54,10 +60,4 @@ variable "vm_master_name" {
   description   = "Name der Template-VM, aus der neue VMs geklont werden"
   type          = string
   default       = "ubuntu-cloud"
-}
-
-variable "onboot" {
-  description   = "Autostart des Containers / der VM nach dem Start von Proxmox"
-  type          = bool
-  default       = false
 }

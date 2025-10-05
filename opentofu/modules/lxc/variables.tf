@@ -23,6 +23,10 @@ variable "memory" {
   type          = number
   default       = 2048
 }
+variable "nesting" {
+  type          = bool
+  default       = false
+}
 
 variable "unprivileged" {
   type          = bool
@@ -44,7 +48,12 @@ variable "subnet" {
 variable "gateway_last_octet" {
   type          = string
 }
+
 variable "public_ssh_key" {
+  type          = string
+}
+
+variable "private_ssh_key" {
   type          = string
 }
 

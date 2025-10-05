@@ -109,6 +109,7 @@ module "lxc_unifi_controller" {
   extra_tags          = ["unifi", "network", "wifi"]
   start_after_create  = true
   onboot              = true
+  nesting             = false
   template            = var.lxc_template_image
   storage             = "local-lvm"
   cores               = 2
@@ -118,6 +119,7 @@ module "lxc_unifi_controller" {
   subnet              = var.subnet
   gateway_last_octet  = var.gateway_last_octet
   public_ssh_key      = var.public_ssh_key
+  private_ssh_key     = var.private_ssh_key
 }
 
 module "lxc_pihole1" {
@@ -128,6 +130,7 @@ module "lxc_pihole1" {
   extra_tags          = ["pihole", "dns", "dhcp"]
   start_after_create  = true
   onboot              = true
+  nesting             = false
   template            = var.lxc_template_image
   storage             = "local-lvm"
   cores               = 2
@@ -137,4 +140,5 @@ module "lxc_pihole1" {
   subnet              = var.subnet
   gateway_last_octet  = var.gateway_last_octet
   public_ssh_key      = var.public_ssh_key
+  private_ssh_key     = var.private_ssh_key
 }
