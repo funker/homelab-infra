@@ -40,10 +40,7 @@ resource "proxmox_lxc" "container" {
 
   tags            = join(",", local.all_tags)
 
-  # LXC Cloud Init
   ssh_public_keys = var.public_ssh_key
-  # ciuser          = "jan"
-  # cipassword      = ""
   searchdomain    = var.searchdomain
   nameserver      = var.nameserver
 }
