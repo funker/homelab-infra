@@ -106,15 +106,16 @@ module "lxc_unifi_controller" {
   target_node         = "pve-nuc"
   vmid                = 10030
   name                = "unifi-controller"
-  extra_tags          = ["unifi", "network", "wifi"]
+  extra_tags          = ["Unifi", "Wifi", "Network"]
   start_after_create  = true
   onboot              = true
   nesting             = false
   template            = var.lxc_template_image
   root_password       = var.root_password
   storage             = "local-lvm"
-  cores               = 2
+  cores               = 1
   memory              = 2048
+  swap                = 1024
   unprivileged        = true
   bridge              = "vmbr0"
   subnet              = var.subnet
@@ -126,9 +127,9 @@ module "lxc_unifi_controller" {
 module "lxc_pihole1" {
   source              = "./modules/lxc"
   target_node         = "pve-nuc"
-  vmid                = 10041
+  vmid                = 10011
   name                = "pihole1"
-  extra_tags          = ["Pi-hole", "dns", "dhcp"]
+  extra_tags          = ["Pi-hole", "DNS", "DHCP", "Network"]
   start_after_create  = true
   onboot              = true
   nesting             = false
@@ -137,28 +138,7 @@ module "lxc_pihole1" {
   storage             = "local-lvm"
   cores               = 2
   memory              = 2048
-  unprivileged        = false
-  bridge              = "vmbr0"
-  subnet              = var.subnet
-  gateway_last_octet  = var.gateway_last_octet
-  public_ssh_key      = var.public_ssh_key
-  private_ssh_key     = var.private_ssh_key
-}
-
-module "lxc_pihole1" {
-  source              = "./modules/lxc"
-  target_node         = "pve-nuc"
-  vmid                = 10041
-  name                = "pihole1"
-  extra_tags          = ["Pi-hole", "dns", "dhcp"]
-  start_after_create  = true
-  onboot              = true
-  nesting             = false
-  template            = var.lxc_template_image
-  root_password       = var.root_password
-  storage             = "local-lvm"
-  cores               = 2
-  memory              = 2048
+  swap                = 512
   unprivileged        = false
   bridge              = "vmbr0"
   subnet              = var.subnet
@@ -170,9 +150,9 @@ module "lxc_pihole1" {
 # module "lxc_pihole2" {
 #   source              = "./modules/lxc"
 #   target_node         = "pve-nuc"
-#   vmid                = 10042
+#   vmid                = 10012
 #   name                = "pihole2"
-#   extra_tags          = ["Pi-hole", "DNS", "DHCP"]
+#   extra_tags          = ["Pi-hole", "DNS", "DHCP", "Network"]
 #   start_after_create  = true
 #   onboot              = true
 #   nesting             = false
@@ -181,6 +161,7 @@ module "lxc_pihole1" {
 #   storage             = "local-lvm"
 #   cores               = 2
 #   memory              = 2048
+#   swap                = 512
 #   unprivileged        = false
 #   bridge              = "vmbr0"
 #   subnet              = var.subnet
@@ -192,9 +173,9 @@ module "lxc_pihole1" {
 # module "lxc_pihole3" {
 #   source              = "./modules/lxc"
 #   target_node         = "pve-nuc"
-#   vmid                = 10043
+#   vmid                = 10013
 #   name                = "pihole3"
-#   extra_tags          = ["Pi-hole", "dns", "dhcp"]
+#   extra_tags          = ["Pi-hole", "DNS", "DHCP", "Network"]
 #   start_after_create  = true
 #   onboot              = true
 #   nesting             = false
@@ -203,6 +184,7 @@ module "lxc_pihole1" {
 #   storage             = "local-lvm"
 #   cores               = 2
 #   memory              = 2048
+#   swap                = 512
 #   unprivileged        = false
 #   bridge              = "vmbr0"
 #   subnet              = var.subnet

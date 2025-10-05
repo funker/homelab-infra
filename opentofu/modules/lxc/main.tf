@@ -18,6 +18,7 @@ resource "proxmox_lxc" "container" {
   ostemplate      = var.template
   cores           = var.cores
   memory          = var.memory
+  swap            = var.swap
   password        = var.root_password
 
   description     = local.description

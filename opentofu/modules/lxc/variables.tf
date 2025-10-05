@@ -23,6 +23,12 @@ variable "memory" {
   type          = number
   default       = 2048
 }
+
+variable "swap" {
+  type          = number
+  default       = 512
+}
+
 variable "nesting" {
   type          = bool
   default       = false
