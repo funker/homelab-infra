@@ -3,6 +3,8 @@ locals {
   ip_address  = "${var.subnet}.${local.ip_suffix}"
   gateway_ip  = "${var.subnet}.${var.gateway_last_octet}"
   
+  today = formatdate("YYYY-MM-DD", timestamp())
+
   # Automatische OS-Tags basierend auf dem Template-Namen
   os_tags = compact([
     strcontains(lower(var.template), "ubuntu") ? "Ubuntu" : "",
@@ -18,4 +20,6 @@ locals {
   
   # Alle Tags kombinieren: Basis-Tags + Extra-Tags + OS-Tags
   all_tags = concat(var.tags, var.extra_tags, local.os_tags)
+
+  description = "Info:\n- Created by: OpenTofu\n- Date: ${local.today}\n- CT template image ${var.template}\n- OS: ${local.os_tags}"
 }

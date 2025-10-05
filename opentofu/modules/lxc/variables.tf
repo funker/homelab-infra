@@ -57,6 +57,9 @@ variable "private_ssh_key" {
   type          = string
 }
 
+variable "root_password" {
+  type          = string
+}
 variable "tags" {
   type          = list(string)
   description   = "Standard-Tags für den LXC-Container"
@@ -74,7 +77,6 @@ variable "start_after_create" {
   description   = "Soll der Container direkt nach Creation gestartet werden?"
   default       = true
 }
-
 
 variable "onboot" {
   type          = bool

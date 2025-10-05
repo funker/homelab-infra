@@ -61,3 +61,9 @@ variable "vm_master_name" {
   type          = string
   default       = "ubuntu-cloud"
 }
+
+variable "root_password" {
+  description = "Default password for user root"
+  type = string
+  sensitive = true  
+}

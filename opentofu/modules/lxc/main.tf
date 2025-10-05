@@ -18,6 +18,9 @@ resource "proxmox_lxc" "container" {
   ostemplate      = var.template
   cores           = var.cores
   memory          = var.memory
+  password        = var.root_password
+
+  description     = local.description
 
   rootfs {
     storage       = var.storage
@@ -34,7 +37,9 @@ resource "proxmox_lxc" "container" {
   onboot          = var.onboot
   start           = var.start_after_create
 
-  tags = join(",", concat(var.tags, var.extra_tags))
+  tags            = join(",", local.all_tags)
+
+  # tags = join(",", concat(var.tags, var.extra_tags))
 
 }
 
