@@ -6,3 +6,5 @@ public_ssh_key  = "ssh-ed25519 AAAA..." # Your SSH public key
 linux_user      = "DefaultUsername" # Name of the user to create and become sudoer on every machine
 subnet          = "10.1.1" # First three octets of the subnet all machines should be using. Will be used to generate all fixed machine IPs plus the gateway IP
 root_password   = "DefaultRootPassword"
+searchdomain    = "example.lan"
+nameserver      = "1.1.1.1"

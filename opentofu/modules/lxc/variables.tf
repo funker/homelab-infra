@@ -51,6 +51,14 @@ variable "subnet" {
   type          = string  
 }
 
+variable "searchdomain" {
+  type          = string
+}
+
+variable "nameserver" {
+  type          = string
+}
+
 variable "gateway_last_octet" {
   type          = string
 }

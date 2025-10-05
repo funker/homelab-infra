@@ -36,14 +36,9 @@ variable "linux_user" {
 variable "lxc_template_image" {
   description   = "Standard LXC Container-Template für alle LXC-Module"
   type          = string
+  # default       = "local-lvm:base-50000-disk-0"
   default       = "local:vztmpl/ubuntu-24.04-standard_24.04-2_amd64.tar.zst"
 }
-
-# variable "unpriviledged" {
-#   description   = "Is the container unpriviledged?"
-#   type          = bool
-#   default       = false
-# }
 
 variable "subnet" {
   description = "Default Subnetz für alle Maschinen"
@@ -63,7 +58,19 @@ variable "vm_master_name" {
 }
 
 variable "root_password" {
-  description = "Default password for user root"
-  type = string
-  sensitive = true  
+  description   = "Default password for user root"
+  type          = string
+  sensitive     = true  
+}
+
+variable "searchdomain" {
+  type          = string
+  description   = "Primary search domain"
+  sensitive     = true
+}
+
+variable "nameserver" {
+  type          = string
+  description   = "Primary name server"
+  sensitive     = true
 }

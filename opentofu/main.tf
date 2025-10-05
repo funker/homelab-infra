@@ -115,10 +115,12 @@ module "lxc_unifi_controller" {
   storage             = "local-lvm"
   cores               = 1
   memory              = 2048
-  swap                = 1024
+  swap                = 512
   unprivileged        = true
   bridge              = "vmbr0"
   subnet              = var.subnet
+  searchdomain        = var.searchdomain
+  nameserver          = var.nameserver
   gateway_last_octet  = var.gateway_last_octet
   public_ssh_key      = var.public_ssh_key
   private_ssh_key     = var.private_ssh_key
@@ -139,9 +141,11 @@ module "lxc_pihole1" {
   cores               = 2
   memory              = 2048
   swap                = 512
-  unprivileged        = false
+  unprivileged        = true
   bridge              = "vmbr0"
   subnet              = var.subnet
+  searchdomain        = var.searchdomain
+  nameserver          = var.nameserver
   gateway_last_octet  = var.gateway_last_octet
   public_ssh_key      = var.public_ssh_key
   private_ssh_key     = var.private_ssh_key
@@ -162,9 +166,11 @@ module "lxc_pihole1" {
 #   cores               = 2
 #   memory              = 2048
 #   swap                = 512
-#   unprivileged        = false
+#   unprivileged        = true
 #   bridge              = "vmbr0"
 #   subnet              = var.subnet
+#   searchdomain        = var.searchdomain
+#   nameserver          = var.nameserver
 #   gateway_last_octet  = var.gateway_last_octet
 #   public_ssh_key      = var.public_ssh_key
 #   private_ssh_key     = var.private_ssh_key
@@ -185,11 +191,12 @@ module "lxc_pihole1" {
 #   cores               = 2
 #   memory              = 2048
 #   swap                = 512
-#   unprivileged        = false
+#   unprivileged        = true
 #   bridge              = "vmbr0"
 #   subnet              = var.subnet
+#   searchdomain        = var.searchdomain
+#   nameserver          = var.nameserver
 #   gateway_last_octet  = var.gateway_last_octet
 #   public_ssh_key      = var.public_ssh_key
 #   private_ssh_key     = var.private_ssh_key
 # }
-

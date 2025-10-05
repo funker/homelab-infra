@@ -39,9 +39,16 @@ resource "proxmox_lxc" "container" {
   start           = var.start_after_create
 
   tags            = join(",", local.all_tags)
+
+  # LXC Cloud Init
+  ssh_public_keys = var.public_ssh_key
+  # ciuser          = "jan"
+  # cipassword      = ""
+  searchdomain    = var.searchdomain
+  nameserver      = var.nameserver
 }
 
-resource "null_resource" "updat_apt_sources" {
+resource "null_resource" "update_apt_sources" {
   count           = var.start_after_create ? 1 : 0
   depends_on      = [proxmox_lxc.container]
 
@@ -55,7 +62,7 @@ resource "null_resource" "updat_apt_sources" {
 
   provisioner "remote-exec" {
     inline = [
-      "apt-get update"
+      "apt update -qq"
     ]
   }
 }
