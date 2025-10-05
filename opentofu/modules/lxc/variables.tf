@@ -60,7 +60,7 @@ variable "private_ssh_key" {
 variable "tags" {
   type          = list(string)
   description   = "Standard-Tags für den LXC-Container"
-  default       = [ "opentofu" ]
+  default       = [ "OpenTofu" ]
 }
 
 variable "extra_tags" {
@@ -77,7 +77,7 @@ variable "start_after_create" {
 
 
 variable "onboot" {
-  description   = "Autostart des Containers / der VM nach dem Start von Proxmox"
   type          = bool
+  description   = "Autostart des Containers / der VM nach dem Start von Proxmox"
   default       = false
 }
