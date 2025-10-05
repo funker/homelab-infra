@@ -33,21 +33,21 @@ modules/
 
 ```tf
 module "lxc_pihole1" {
-    source = "./modules/lxc"
-    vmid = 10248
-    name = "pihole1"
-    template = var.lxc_template_image
-    storage = "local-lvm"
-    cores = 2
-    memory = 2048
-    unprivileged = false
-    bridge = "vmbr0"
-    subnet = var.subnet
-    gateway_last_octet = var.gateway_last_octet
-    public_ssh_key = var.public_ssh_key
-    onboot = true
-    start_after_create = true
-    extra_tags = ["pihole","dns"]
+  source = "./modules/lxc"
+  vmid = 10248
+  name = "pihole1"
+  template = var.lxc_template_image
+  storage = "local-lvm"
+  cores = 2
+  memory = 2048
+  unprivileged = false
+  bridge = "vmbr0"
+  subnet = var.subnet
+  gateway_last_octet = var.gateway_last_octet
+  public_ssh_key = var.public_ssh_key
+  onboot = true
+  start_after_create = true
+  extra_tags = ["pihole","dns"]
 }
 ```
 
