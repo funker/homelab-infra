@@ -36,7 +36,7 @@ variable "linux_user" {
 variable "lxc_template_image" {
   description   = "Standard LXC Container-Template für alle LXC-Module"
   type          = string
-  default       = "local:vztmpl/ubuntu-24.04.3-live-server-amd64.iso"
+  default       = "local:vztmpl/ubuntu-24.04-standard_24.04-2_amd64.tar.zst"
 }
 
 variable "unpriviledged" {
