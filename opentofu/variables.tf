@@ -39,11 +39,11 @@ variable "lxc_template_image" {
   default       = "local:vztmpl/ubuntu-24.04-standard_24.04-2_amd64.tar.zst"
 }
 
-variable "unpriviledged" {
-  description   = "Is the container unpriviledged?"
-  type          = bool
-  default       = false
-}
+# variable "unpriviledged" {
+#   description   = "Is the container unpriviledged?"
+#   type          = bool
+#   default       = false
+# }
 
 variable "subnet" {
   description = "Default Subnetz für alle Maschinen"

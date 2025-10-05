@@ -21,5 +21,7 @@ locals {
   # Alle Tags kombinieren: Basis-Tags + Extra-Tags + OS-Tags
   all_tags = concat(var.tags, var.extra_tags, local.os_tags)
 
-  description = "Info:\n- Created by: OpenTofu\n- Date: ${local.today}\n- CT template image ${var.template}\n- OS: ${local.os_tags}"
+  description = "Info:\n- Created by: OpenTofu\n- Date: ${local.today}\n- CT template image ${var.template}\n- OS: ${length(local.os_tags) > 0 ? local.os_tags[0] : "Unknown"}"
+
+  # description = "Info:\n- Created by: OpenTofu\n- Date: ${local.today}\n- CT template image ${var.template}\n- OS: ${local.os_tags}"
 }
