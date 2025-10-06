@@ -11,9 +11,8 @@ root_password   = "DefaultRootPassword"
 searchdomain    = "example.lan"
 nameserver      = "1.1.1.1"
 
-
 containers = {
-  pihole1 = {
+  example-container = {
     target_node         = "pve-node1"
     vmid                = 10000
     name                = "container-name"
