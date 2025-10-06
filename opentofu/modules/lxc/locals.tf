@@ -24,4 +24,10 @@ locals {
   description = "Info:\n- Created by: OpenTofu\n- Date: ${local.today}\n- CT template image ${var.template}\n- OS: ${length(local.os_tags) > 0 ? local.os_tags[0] : "Unknown"}"
 
   # description = "Info:\n- Created by: OpenTofu\n- Date: ${local.today}\n- CT template image ${var.template}\n- OS: ${local.os_tags}"
+
+
+  # Erzeugt eine map name → IP
+  container_ips = {
+    for name, mod in module.lxc : name => mod.ip_address
+  }
 }

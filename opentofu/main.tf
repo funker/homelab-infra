@@ -1,202 +1,86 @@
-# module "template_conversion" {
-#   source              = "./modules/vm-template"
-#   vmid                = 50000
-#   target_node         = "pve-nuc"
-#   name                = var.vm_master_name
-# }
+# LXC containers
 
-# module "octoprint" {
-#   source              = "./modules/vm-clone"
-#   vmid                = 10239
-#   name                = "octoprint"
-#   target_node         = "pve-nuc"
-#   template_name       = var.vm_master_name
-#   cores               = 2
-#   memory              = 1024
-#   disk_size           = "12G"
-#   storage             = "local-lvm"
-#   bridge              = "vmbr0"
-#   user_name           = var.linux_user
-#   public_ssh_key      = var.public_ssh_key
-#   subnet              = var.subnet
-#   gateway_last_octet  = var.gateway_last_octet
-#   auto_reboot         = true
-#   onboot              = false
-# }
-
-# module "conbee" {
-#   source              = "./modules/vm-clone"
-#   vmid                = 10243
-#   name                = "conbee"
-#   target_node         = "pve-nuc"
-#   template_name       = var.vm_master_name
-#   cores               = 2
-#   memory              = 2048
-#   disk_size           = "20G"
-#   storage             = "local-lvm"
-#   bridge              = "vmbr0"
-#   user_name           = var.linux_user
-#   public_ssh_key      = var.public_ssh_key
-#   subnet              = var.subnet
-#   gateway_last_octet  = var.gateway_last_octet
-#   auto_reboot         = true
-#   onboot              = true
-# }
-
-# module "homeassistant" {
-#   source              = "./modules/vm-clone"
-#   vmid                = 10238
-#   name                = "homeassistant"
-#   target_node         = "pve-nuc"
-#   template_name       = var.vm_master_name
-#   cores               = 2
-#   memory              = 2048
-#   disk_size           = "20G"
-#   storage             = "local-lvm"
-#   bridge              = "vmbr0"
-#   user_name           = var.linux_user
-#   public_ssh_key      = var.public_ssh_key
-#   subnet              = var.subnet
-#   gateway_last_octet  = var.gateway_last_octet
-#   auto_reboot         = true
-#   onboot              = true
-# }
-
-
-# module "docker" {
-#   source              = "./modules/vm-clone"
-#   vmid                = 10102
-#   name                = "docker"
-#   target_node         = "pve-nuc"
-#   template_name       = var.vm_master_name
-#   cores               = 2
-#   memory              = 2048
-#   disk_size           = "20G"
-#   storage             = "local-lvm"
-#   bridge              = "vmbr0"
-#   user_name           = var.linux_user
-#   public_ssh_key      = var.public_ssh_key
-#   subnet              = var.subnet
-#   gateway_last_octet  = var.gateway_last_octet
-#   auto_reboot         = true
-#   onboot              = true
-# }
-
-# module "proxmox_backup" {
-#   source              = "./modules/vm-clone"
-#   vmid                = 10005
-#   name                = "proxmox-backup-server"
-#   target_node         = "pve-nuc"
-#   template_name       = var.vm_master_name
-#   cores               = 2
-#   memory              = 2048
-#   disk_size           = "20G"
-#   storage             = "local-lvm"
-#   bridge              = "vmbr0"
-#   user_name           = var.linux_user
-#   public_ssh_key      = var.public_ssh_key
-#   subnet              = var.subnet
-#   gateway_last_octet  = var.gateway_last_octet
-#   auto_reboot         = true
-#   onboot              = true
-# }
-
-module "lxc_unifi_controller" {
-  source              = "./modules/lxc"
-  target_node         = "pve-nuc"
-  vmid                = 10030
-  name                = "unifi-controller"
-  extra_tags          = ["Unifi", "Wifi", "Network"]
-  start_after_create  = true
-  onboot              = true
-  nesting             = false
-  template            = var.lxc_template_image
-  root_password       = var.root_password
-  storage             = "local-lvm"
-  cores               = 1
-  memory              = 2048
-  swap                = 512
-  unprivileged        = true
-  bridge              = "vmbr0"
-  subnet              = var.subnet
-  searchdomain        = var.searchdomain
-  nameserver          = var.nameserver
-  gateway_last_octet  = var.gateway_last_octet
-  public_ssh_key      = var.public_ssh_key
-  private_ssh_key     = var.private_ssh_key
+# Variablen für alle Container
+variable "containers" {
+  type = map(object({
+    target_node         = string
+    vmid                = number
+    name                = string
+    template            = string
+    storage             = string
+    cores               = number
+    memory              = number
+    swap                = number
+    unprivileged        = bool
+    bridge              = string
+    subnet              = string
+    gateway_last_octet  = number
+    public_ssh_key      = string
+    private_ssh_key     = string
+    root_password       = string
+    onboot              = bool
+    start_after_create  = bool
+    extra_tags          = list(string)
+    nesting             = bool
+  }))
 }
 
-module "lxc_pihole1" {
-  source              = "./modules/lxc"
-  target_node         = "pve-nuc"
-  vmid                = 10011
-  name                = "pihole1"
-  extra_tags          = ["Pi-hole", "DNS", "DHCP", "Network"]
-  start_after_create  = true
-  onboot              = true
-  nesting             = false
-  template            = var.lxc_template_image
-  root_password       = var.root_password
-  storage             = "local-lvm"
-  cores               = 2
-  memory              = 2048
-  swap                = 512
-  unprivileged        = true
-  bridge              = "vmbr0"
-  subnet              = var.subnet
-  searchdomain        = var.searchdomain
-  nameserver          = var.nameserver
-  gateway_last_octet  = var.gateway_last_octet
-  public_ssh_key      = var.public_ssh_key
-  private_ssh_key     = var.private_ssh_key
+module "lxc" {
+  source = "./modules/lxc"
+  for_each = var.containers
+
+  target_node         = each.value.target_node
+  vmid                = each.value.vmid
+  name                = each.value.name
+  template            = each.value.template
+  storage             = each.value.storage
+  cores               = each.value.cores
+  memory              = each.value.memory
+  swap                = each.value.swap
+  unprivileged        = each.value.unprivileged
+  bridge              = each.value.bridge
+  subnet              = each.value.subnet
+  searchdomain        = each.value.searchdomain
+  nameserver          = each.value.nameserver
+  gateway_last_octet  = each.value.gateway_last_octet
+  public_ssh_key      = each.value.public_ssh_key
+  private_ssh_key     = each.value.private_ssh_key
+  root_password       = each.value.root_password
+  onboot              = each.value.onboot
+  start_after_create  = each.value.start_after_create
+  extra_tags          = each.value.extra_tags
+  nesting             = each.value.nesting
 }
 
-# module "lxc_pihole2" {
-#   source              = "./modules/lxc"
-#   target_node         = "pve-nuc"
-#   vmid                = 10012
-#   name                = "pihole2"
-#   extra_tags          = ["Pi-hole", "DNS", "DHCP", "Network"]
-#   start_after_create  = true
-#   onboot              = true
-#   nesting             = false
-#   template            = var.lxc_template_image
-#   root_password       = var.root_password
-#   storage             = "local-lvm"
-#   cores               = 2
-#   memory              = 2048
-#   swap                = 512
-#   unprivileged        = true
-#   bridge              = "vmbr0"
-#   subnet              = var.subnet
-#   searchdomain        = var.searchdomain
-#   nameserver          = var.nameserver
-#   gateway_last_octet  = var.gateway_last_octet
-#   public_ssh_key      = var.public_ssh_key
-#   private_ssh_key     = var.private_ssh_key
-# }
+# Inventory-Template rendern
+data "template_file" "ansible_inventory" {
+  # template = file("${path.module}/inventory.tpl")
+  template = file("${path.module}/inventory.tpl")
+  vars = {
+    container_ips = local.container_ips
+  }
+}
 
-# module "lxc_pihole3" {
-#   source              = "./modules/lxc"
-#   target_node         = "pve-nuc"
-#   vmid                = 10013
-#   name                = "pihole3"
-#   extra_tags          = ["Pi-hole", "DNS", "DHCP", "Network"]
-#   start_after_create  = true
-#   onboot              = true
-#   nesting             = false
-#   template            = var.lxc_template_image
-#   root_password       = var.root_password
-#   storage             = "local-lvm"
-#   cores               = 2
-#   memory              = 2048
-#   swap                = 512
-#   unprivileged        = true
-#   bridge              = "vmbr0"
-#   subnet              = var.subnet
-#   searchdomain        = var.searchdomain
-#   nameserver          = var.nameserver
-#   gateway_last_octet  = var.gateway_last_octet
-#   public_ssh_key      = var.public_ssh_key
-#   private_ssh_key     = var.private_ssh_key
+# Inventory-Datei ins Ansible-Verzeichnis schreiben
+resource "local_file" "inventory_file" {
+  content  = data.template_file.ansible_inventory.rendered
+  filename = "${path.module}/../ansible/inventory.ini"
+}
+
+# Ansible nach LXC-Erstellung ausführen
+# resource "null_resource" "run_ansible" {
+#   triggers = {
+#     always_run     = timestamp()
+#     inventory_hash = sha1(data.template_file.ansible_inventory.rendered)
+#   }
+
+#   provisioner "local-exec" {
+#     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini playbooks/site.yml"
+#     working_dir = "${path.module}/../ansible"
+#   }
+
+#   depends_on = [
+#     local_file.inventory_file,
+#     # Hier alle Ihre LXC-Module eintragen
+#   ]
 # }
