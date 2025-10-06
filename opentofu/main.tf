@@ -54,7 +54,6 @@ module "lxc" {
 
 # Inventory-Template rendern
 data "template_file" "ansible_inventory" {
-  # template = file("${path.module}/inventory.tpl")
   template = file("${path.module}/inventory.tpl")
   vars = {
     container_ips = local.container_ips
