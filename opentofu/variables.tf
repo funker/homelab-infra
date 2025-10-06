@@ -107,3 +107,9 @@ variable "containers" {
   type        = map(any)
   default     = {}
 }
+
+variable "ssh_timeout" {
+  description = "SSH ConnectTimeout in Sekunden für Ansible"
+  type        = number
+  default     = 60
+}

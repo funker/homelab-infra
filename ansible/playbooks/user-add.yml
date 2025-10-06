@@ -1,0 +1,52 @@
+# ./ansible/playbooks/user-add.yml
+
+---
+- name: Benutzer anlegen mit sudo-Rechten
+  hosts: all
+  become: yes
+
+  vars_files:
+    - group_vars/all.yml
+
+  tasks:
+    - name: Benutzer anlegen
+      user:
+        name: "{{ linux_user }}"
+        shell: /bin/bash
+        state: present
+        create_home: yes
+
+    - name: Benutzer in sudo Gruppe hinzufügen
+      user:
+        name: "{{ linux_user }}"
+        groups: sudo
+        append: yes
+
+    - name: Passwortlose sudo erlauben
+      copy:
+        dest: /etc/sudoers.d/"{{ linux_user }}"
+        content: "{{ linux_user }} ALL=(ALL) NOPASSWD: ALL\n"
+        owner: root
+        group: root
+        mode: '0440'
+
+    - name: Erzeuge .ssh Verzeichnis
+      file:
+        path: /home/{{ linux_user }}/.ssh
+        state: directory
+        owner: "{{ linux_user }}"
+        group: "{{ linux_user }}"
+        mode: '0700'
+
+    - name: Kopiere Public Key
+      authorized_key:
+        user: "{{ linux_user }}"
+        state: present
+        key: "{{ lookup('file', public_ssh_key_file) }}"
+
+    - name: SSH-Fingerprint sammeln und in known_hosts speichern
+      delegate_to: localhost
+      known_hosts:
+        name: "{{ ansible_host }}"
+        key: "{{ lookup('pipe', 'ssh-keyscan -p ' ~ (ansible_port|default(22)) ~ ' ' ~ ansible_host) }}"
+        path: "~/.ssh/known_hosts"

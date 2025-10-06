@@ -1,13 +1,26 @@
+# ./.gitignore
+
+### Ansible
+
+# Ansible Vault Dateien (falls genutzt)
+*.vault.yml
+
+# Ansible inventory
+ansible/inventory*.ini
+
+# Ansible modules
+ansible/proxmox
+
+
+
+### Terraform/OpenTofu
+
 # Terraform state
 *.tfstate
 *.tfstate.*
 terraform.tfstate
 terraform.tfstate.*
 .terraform.lock.hcl
-
-# Crash logs
-crash.log
-crash.*.log
 
 # Sensitive variable files
 *.tfvars
@@ -18,20 +31,33 @@ terraform.tfvars.json
 # Terraform working directory
 .terraform/
 
-# Optional: Plan files (falls du sie erzeugst)
+# Terraform Plan files
 *.tfplan
 
+# Notes
 notes.tf
 
-# Ansible Vault Dateien (falls genutzt)
-*.vault.yml
+
+
+### Packer
+
+# Packer
+*.pkrvars.hcl
+
+
+
+### Misc
 
 # Temporäre Dateien
 *.retry
 
+# Crash logs
+crash.log
+crash.*.log
+
+# Old files
 *.old
 
+# Log files
 *.log
 
-# Packer
-*.pkrvars.hcl

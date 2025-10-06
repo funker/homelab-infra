@@ -1,0 +1,7 @@
+#  ./ansible/playbooks/main.yml
+
+---
+- import_playbook: site.yml
+# - import_playbook: cleanup.yml
+- import_playbook: user-add.yml
+- import_playbook: user-environment.yml

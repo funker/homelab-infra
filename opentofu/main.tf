@@ -43,7 +43,7 @@ resource "null_resource" "run_ansible" {
   }
 
   provisioner "local-exec" {
-    command     = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini playbooks/site.yml"
+    command     = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini --ask-vault-pass playbooks/main.yml"
     working_dir = "${path.module}/../ansible"
   }
 

@@ -1,9 +1,11 @@
+# -/ansible/playbooks/user-environment.yml
+
 ---
 - name: Setup user environment with starship and dotfiles
   hosts: all
   become: yes
   vars:
-    dotfiles_repo: "https://github.com/funker/dotfiles.git"
+    dotfiles_repo: {{ repo_dotfiles }}
     tools_to_install:
       - git
       - stow

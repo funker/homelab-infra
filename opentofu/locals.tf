@@ -18,7 +18,7 @@ locals {
   # Container-IPs sammeln (angepasst an Ihre Module-Outputs)
   container_ips = {
     for name, mod in module.lxc :
-    name => mod.ip_address
+    name => split("/", mod.ip_address)[0]   # <-- Nur Adresse vor "/" behalten
     if mod.ip_address != null
   }
 
@@ -39,12 +39,21 @@ locals {
   }
 
   # Generiere Ansible inventory file
-  ansible_inventory = templatefile(
+  raw_inventory = templatefile(
     "${path.module}/inventory.tpl",
     {
       container_ips = local.container_ips
       tag_groups    = local.tag_groups
+      linux_user    = var.linux_user
+      ssh_timeout   = var.ssh_timeout
     }
+  )
+
+  # Pfad in der ersten Zeile ersetzen
+  ansible_inventory = replace(
+    local.raw_inventory,
+    "# ./opentofu/inventory.tpl",
+    "# ./ansible/inventory.ini"
   )
 
   # Merge Defaults mit Overrides aus var.containers
