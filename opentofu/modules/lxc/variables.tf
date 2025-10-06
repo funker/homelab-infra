@@ -1,3 +1,5 @@
+# ./modules/lxc/variables.tf
+
 variable "vmid" {
   type          = number
 }

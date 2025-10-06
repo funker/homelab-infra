@@ -1,33 +1,10 @@
-# LXC containers
+# ./main.tf
 
-# Variablen für alle Container
-variable "containers" {
-  type = map(object({
-    target_node         = string
-    vmid                = number
-    name                = string
-    template            = string
-    storage             = string
-    cores               = number
-    memory              = number
-    swap                = number
-    unprivileged        = bool
-    bridge              = string
-    subnet              = string
-    gateway_last_octet  = number
-    public_ssh_key      = string
-    private_ssh_key     = string
-    root_password       = string
-    onboot              = bool
-    start_after_create  = bool
-    extra_tags          = list(string)
-    nesting             = bool
-  }))
-}
+# LXC containers
 
 module "lxc" {
   source = "./modules/lxc"
-  for_each = var.containers
+  for_each = local.container_cfg
 
   target_node         = each.value.target_node
   vmid                = each.value.vmid
@@ -52,34 +29,26 @@ module "lxc" {
   nesting             = each.value.nesting
 }
 
-# Inventory-Template rendern
-data "template_file" "ansible_inventory" {
-  template = file("${path.module}/inventory.tpl")
-  vars = {
-    container_ips = local.container_ips
-  }
-}
-
 # Inventory-Datei ins Ansible-Verzeichnis schreiben
 resource "local_file" "inventory_file" {
-  content  = data.template_file.ansible_inventory.rendered
+  content  = local.ansible_inventory
   filename = "${path.module}/../ansible/inventory.ini"
 }
 
 # Ansible nach LXC-Erstellung ausführen
-# resource "null_resource" "run_ansible" {
-#   triggers = {
-#     always_run     = timestamp()
-#     inventory_hash = sha1(data.template_file.ansible_inventory.rendered)
-#   }
+resource "null_resource" "run_ansible" {
+  triggers = {
+    always_run     = timestamp()
+    inventory_hash = sha1(local.ansible_inventory)
+  }
 
-#   provisioner "local-exec" {
-#     command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini playbooks/site.yml"
-#     working_dir = "${path.module}/../ansible"
-#   }
+  provisioner "local-exec" {
+    command     = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini playbooks/site.yml"
+    working_dir = "${path.module}/../ansible"
+  }
 
-#   depends_on = [
-#     local_file.inventory_file,
-#     # Hier alle Ihre LXC-Module eintragen
-#   ]
-# }
+  depends_on = [
+    local_file.inventory_file,
+    module.lxc,
+  ]
+}

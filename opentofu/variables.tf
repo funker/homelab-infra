@@ -1,3 +1,5 @@
+# ./variables.tf
+
 variable "proxmox_url" {
   description   = "API URL für Proxmox"
   type          = string
@@ -73,4 +75,35 @@ variable "nameserver" {
   type          = string
   description   = "Primary name server"
   sensitive     = true
+}
+
+# # Variablen für alle Container
+# variable "containers" {
+#   type = map(object({
+#     target_node         = string
+#     vmid                = number
+#     name                = string
+#     template            = string
+#     storage             = string
+#     cores               = number
+#     memory              = number
+#     swap                = number
+#     unprivileged        = bool
+#     bridge              = string
+#     subnet              = string
+#     gateway_last_octet  = number
+#     public_ssh_key      = string
+#     private_ssh_key     = string
+#     root_password       = string
+#     onboot              = bool
+#     start_after_create  = bool
+#     extra_tags          = list(string)
+#     nesting             = bool
+#   }))
+# }
+
+variable "containers" {
+  description = "Map minimaler Container-Overrides; Default-Felder werden per locals.container_defaults ergänzt"
+  type        = map(any)
+  default     = {}
 }

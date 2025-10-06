@@ -1,3 +1,5 @@
+# ./modules/lxc/main.tf
+
 terraform {
   required_providers {
     proxmox = {
@@ -24,7 +26,7 @@ resource "proxmox_vm_qemu" "clone" {
   agent   = 1
 
   network {
-    id     = 0
+    id     = 0 # Fehler: Unexpected attribute: An attribute named "id" is not expected here
     bridge = var.bridge
     model  = "virtio"
   }

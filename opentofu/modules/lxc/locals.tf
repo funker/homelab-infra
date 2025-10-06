@@ -1,3 +1,5 @@
+# ./modules/lxc/locals.tf
+
 locals {
   ip_suffix   = tonumber(substr(format("%05d", var.vmid), -3, 3))
   ip_address  = "${var.subnet}.${local.ip_suffix}"
@@ -25,9 +27,4 @@ locals {
 
   # description = "Info:\n- Created by: OpenTofu\n- Date: ${local.today}\n- CT template image ${var.template}\n- OS: ${local.os_tags}"
 
-
-  # Erzeugt eine map name → IP
-  container_ips = {
-    for name, mod in module.lxc : name => mod.ip_address
-  }
 }
