@@ -1,4 +1,4 @@
-# ./modules/lxc/main.tf
+# ./opentofu/modules/lxc/main.tf
 
 terraform {
   required_providers {
@@ -47,21 +47,21 @@ resource "proxmox_lxc" "container" {
   nameserver      = var.nameserver
 }
 
-resource "null_resource" "update_apt_sources" {
-  count           = var.start_after_create ? 1 : 0
-  depends_on      = [proxmox_lxc.container]
+# resource "null_resource" "show_ip_address" {
+#   count           = var.start_after_create ? 1 : 0
+#   depends_on      = [proxmox_lxc.container]
 
-  connection {
-    type          = "ssh"
-    host          = local.ip_address
-    user          = "root"
-    password      = var.root_password
-    agent         = true
-  }
+#   connection {
+#     type          = "ssh"
+#     host          = local.ip_address
+#     user          = "root"
+#     password      = var.root_password
+#     agent         = true
+#   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "apt update -qq"
-    ]
-  }
-}
+#   provisioner "remote-exec" {
+#     inline = [
+#       "ip a"
+#     ]
+#   }
+# }

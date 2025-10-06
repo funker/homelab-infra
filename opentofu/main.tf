@@ -1,4 +1,4 @@
-# ./main.tf
+# ./opentofu/main.tf
 
 # LXC containers
 

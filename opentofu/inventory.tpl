@@ -1,4 +1,4 @@
-# ./inventory.tpl
+# ./opentofu/inventory.tpl
 
 # Inventory generiert von Terraform/OpenTofu
 

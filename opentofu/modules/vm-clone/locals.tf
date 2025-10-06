@@ -1,4 +1,4 @@
-# ./modules/vm-clone/locals.tf
+# ./opentofu/modules/vm-clone/locals.tf
 
 
 locals {

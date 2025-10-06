@@ -1,4 +1,4 @@
-# ./modules/lxc/locals.tf
+# ./opentofu/modules/lxc/locals.tf
 
 locals {
   ip_suffix   = tonumber(substr(format("%05d", var.vmid), -3, 3))

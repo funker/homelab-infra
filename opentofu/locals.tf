@@ -1,4 +1,4 @@
-# ./locals.tf
+# ./opentofu/locals.tf
 
 locals {
   today = formatdate("YYYY-MM-DD", timestamp())

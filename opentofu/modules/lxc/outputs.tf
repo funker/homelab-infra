@@ -1,4 +1,4 @@
-# ./modules/lxc/outputs.tf
+# ./opentofu/opentofu/modules/lxc/outputs.tf
 
 output "ip_address" {
   description = "Die IPv4-Adresse des LXC-Containers"
@@ -13,6 +13,5 @@ output "hostname" {
 # Liste der Tags
 output "extra_tags" {
   description = "Liste der zusätzlichen Tags des Containers"
-#   value       = try(proxmox_lxc.container.tags, [])
   value       = local.all_tags
 }

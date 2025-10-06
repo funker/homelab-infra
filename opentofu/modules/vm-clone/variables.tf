@@ -1,4 +1,4 @@
-# ./modules/lxc/variables.tf
+# ./opentofu/modules/lxc/variables.tf
 
 variable "vmid" {
   type = number

@@ -1,4 +1,4 @@
-# ./modules/lxc/main.tf
+# ./opentofu/modules/lxc/main.tf
 
 terraform {
   required_providers {

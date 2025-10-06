@@ -1,4 +1,4 @@
-# ./modules/vm-template/variables.tf
+# ./opentofu/modules/vm-template/variables.tf
 
 variable "vmid" {
   type = number
