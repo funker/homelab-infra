@@ -1,0 +1,67 @@
+---
+- name: Setup user environment with starship and dotfiles
+  hosts: all
+  become: yes
+  vars:
+    dotfiles_repo: "https://github.com/funker/dotfiles.git"
+    tools_to_install:
+      - git
+      - stow
+      - neofetch
+      - thefuck
+
+  tasks:
+    - name: Install prerequisites for curl (Debian/Ubuntu)
+      apt:
+        name: curl
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install tools (Debian/Ubuntu)
+      apt:
+        name: "{{ tools_to_install }}"
+        state: present
+        update_cache: yes
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install prerequisites for curl (RedHat)
+      yum:
+        name: curl
+        state: present
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Install tools (RedHat)
+      yum:
+        name: "{{ tools_to_install }}"
+        state: present
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Install Starship shell prompt
+      shell: curl -sS https://starship.rs/install.sh | sh
+      args:
+        creates: /usr/local/bin/starship
+
+    - name: Remove default dotfiles
+      file:
+        path: "{{ ansible_env.HOME }}/{{ item }}"
+        state: absent
+      loop:
+        - .bashrc
+        - .bash_aliases
+        - .hushlogin
+        - .gitconfig
+
+    - name: Clone dotfiles repository
+      git:
+        repo: "{{ dotfiles_repo }}"
+        dest: "{{ ansible_env.HOME }}/dotfiles"
+        update: yes
+        version: HEAD
+        force: yes
+      become: no
+
+    - name: Stow dotfiles
+      shell: stow --dir={{ ansible_env.HOME }}/dotfiles --target={{ ansible_env.HOME }} .
+      args:
+        chdir: "{{ ansible_env.HOME }}/dotfiles"
+      become: no

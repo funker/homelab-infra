@@ -1,0 +1,7 @@
+---
+- name: Network hosts ping check using Ansible module
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Ping hosts via ansible.builtin.ping
+      ansible.builtin.ping:

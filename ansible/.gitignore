@@ -21,8 +21,6 @@ terraform.tfvars.json
 # Optional: Plan files (falls du sie erzeugst)
 *.tfplan
 
-notes.tf
-
 # Ansible Vault Dateien (falls genutzt)
 *.vault.yml
 
@@ -33,5 +31,11 @@ notes.tf
 
 *.log
 
+
 # Packer
 *.pkrvars.hcl
+
+inventory2.ini
+
+add-user-jan.yml
+proxmox/

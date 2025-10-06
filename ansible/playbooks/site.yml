@@ -1,0 +1,22 @@
+---
+- name: Konfiguriere LXC-Container
+  hosts: lxc_hosts
+  become: true
+  gather_facts: yes
+
+  tasks:
+    - name: System aktualisieren
+      apt:
+        update_cache: yes
+        upgrade: dist
+        cache_valid_time: 3600
+
+    - name: Basis-Tools installieren
+      apt:
+        name:
+          - htop
+          - curl
+          - wget
+          - vim
+          - git
+        state: present

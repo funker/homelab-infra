@@ -1,0 +1,18 @@
+---
+- name: Distribute SSH Public Key
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure .ssh directory exists
+      file:
+        path: ~/.ssh
+        state: directory
+        mode: '0700'
+        owner: "{{ ansible_user | default('root') }}"
+        group: "{{ ansible_user | default('root') }}"
+
+    - name: Install public SSH key using variable
+      authorized_key:
+        user: "{{ ansible_user | default('root') }}"
+        state: present
+        key: "{{ lookup('file', public_ssh_key_file) }}"

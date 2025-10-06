@@ -1,0 +1,17 @@
+---
+- name: Homelab Basis Setup
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Hostname anzeigen
+      debug:
+        msg: "Konfiguriere Host: {{ inventory_hostname }}"
+
+    - name: Beispielsweise SSH-Key auflisten
+      ansible.builtin.command: "ls -l {{ ansible_ssh_private_key_file }}"
+      register: key_listing
+
+    - name: Ausgabe anzeigen
+      debug:
+        var: key_listing.stdout
