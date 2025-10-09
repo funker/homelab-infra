@@ -1,0 +1,16 @@
+# ansible/playbooks/docker-deploy.yml
+- name: Deploy Docker Stacks
+  hosts: docker_host
+  tasks:
+    - name: Ensure Docker stack directories exist
+      file:
+        path: "/opt/docker/{{ item }}"
+        state: directory
+      loop: "{{ docker_stacks }}"
+    
+    - name: Template Docker Compose files
+      template:
+        src: "docker/{{ item }}/docker-compose.yml.j2"
+        dest: "/opt/docker/{{ item }}/docker-compose.yml"
+      loop: "{{ docker_stacks }}"
+      notify: restart docker stack

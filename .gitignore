@@ -4,9 +4,10 @@
 
 # Ansible Vault Dateien (falls genutzt)
 *.vault.yml
+vault.yml
 
 # Ansible inventory
-ansible/inventory*.ini
+inventory*.ini
 
 # Ansible modules
 ansible/proxmox

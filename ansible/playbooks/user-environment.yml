@@ -5,7 +5,7 @@
   hosts: all
   become: yes
   vars:
-    dotfiles_repo: {{ repo_dotfiles }}
+    dotfiles_repo: "{{ repo_dotfiles }}"
     tools_to_install:
       - git
       - stow
